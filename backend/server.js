@@ -14,7 +14,10 @@ const port = process.env.PORT || 4000;
 
 // middlewares
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: "*",
+    credentials: true
+}))
 
 // db connection
 connectDB()
@@ -28,6 +31,6 @@ app.use("/api/order",orderRouter)
 
 app.get("/", (req, res) => {
     res.send("API Working")
-  });
+});
 
 app.listen(port, () => console.log(`Server started on http://localhost:${port}`))

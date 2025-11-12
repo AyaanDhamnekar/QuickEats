@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
 
-export const  connectDB = async () =>{
-
-    await mongoose.connect('mongodb://localhost:27017/foodie').then(()=>console.log("DB Connected"));
+export const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log("DB Connected");
+    } catch (error) {
+        console.error("DB Connection Error:", error);
+        process.exit(1);
+    }
 }
 
-
-// add your mongoDB connection string above.
-// Do not use '@' symbol in your databse user's password else it will show an error.
+// add your mongoDB connection string in .env file as MONGODB_URI
+// Do not use '@' symbol in your database user's password else it will show an error.
